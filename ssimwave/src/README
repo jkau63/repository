@@ -1,11 +1,16 @@
 usage: luma <number of threads> <directory of video files>
 
 assumptions:
+0) linked with ffmpeg 4.2.1:
+
+bash-3.2$ ffmpeg -version
+ffmpeg version 4.2.1 Copyright (c) 2000-2019 the FFmpeg developers
+built with Apple LLVM version 10.0.0 (clang-1000.10.44.4)
 
 1) Only 1 thread is used per file
-    Doing a multi-thread decode on a singel stream is possible but complicated and
+    Doing a multi-thread decode on a single stream is possible but complicated and
     therefore probably beyond the scope of this probject.  If the number of thread
-    is > the number of files in the directory a warning will appear.
+    is > the number of files in the directory, a warning will appear.
 2) Only YUV color space is supported
     Content in 4:4:4 color space does exist but is not common.  Unpredictable behavior will
     occur if this content is discovered.
