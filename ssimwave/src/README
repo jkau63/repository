@@ -1,0 +1,19 @@
+usage: luma <number of threads> <directory of video files>
+
+assumptions:
+
+1) Only 1 thread is used per file
+    Doing a multi-thread decode on a singel stream is possible but complicated and
+    therefore probably beyond the scope of this probject.  If the number of thread
+    is > the number of files in the directory a warning will appear.
+2) Only YUV color space is supported
+    Content in 4:4:4 color space does exist but is not common.  Unpredictable behavior will
+    occur if this content is discovered.
+
+warnings:
+1) Non-deterministic behavior was discovered for the U and V color componenets when running multi-threaded
+    The values of RY and BY were not always the same on the same frame of copies of the same clip evaluated 
+    on different threads.  I interpreted this to be either non-thread-safe behavior in ffmpeg or 'don't care'
+    values occupying RY/BY for extremely high or low luma values which will be properly handled through clipping when
+    converting color space.  I didn't actually determine the cause but it is worth investigating.
+    In any event, the decoded luma value were always deterministic.
